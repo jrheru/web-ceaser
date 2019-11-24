@@ -8,22 +8,22 @@ page_html = """
 <html>
     <head>
         <style>
-            form {
+            form {{
                 background-color: #eee;
                 padding: 20px;
                 margin: 0 auto;
                 width: 540px;
                 font: 16px sans-serif;
                 border-radius: 10px;
-            }
-            textarea {
+            }}
+            textarea {{
                 margin: 10px 0;
                 width: 540px;
                 height: 120px;
-            }
-            p.error {
+            }}
+            p.error {{
                 color: red;
-            }
+            }}
         </style>
     </head>
     <body>
@@ -33,7 +33,7 @@ page_html = """
                 <input type="text" name="rot" value="0">
                 <p class="error"></p>
             </div>
-            <textarea type="text" name="text"></textarea>
+            <textarea type="text" name="text">{0}</textarea>
             <br>
             <input type="submit">
         </form>
@@ -45,13 +45,13 @@ app.config['DEBUG'] = True
 
 @app.route("/")
 def index():
-    return page_html
+    return page_html.format('')
 
 @app.route("/", methods = ["POST"])
 def encrypt():
     rots = int(request.form['rot'])
     msg = request.form['text']
-    return "<h1>" + rotate_string(msg, rots) + "</h1>"
+    return page_html.format(rotate_string(msg, rots))
        
    
 app.run()
