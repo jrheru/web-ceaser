@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+from caesar import rotate_string
 
 page_html = """
 
@@ -46,4 +47,11 @@ app.config['DEBUG'] = True
 def index():
     return page_html
 
+@app.route("/", methods = ["POST"])
+def encrypt():
+    rots = int(request.form['rot'])
+    msg = request.form['text']
+    return "<h1>" + rotate_string(msg, rots) + "</h1>"
+       
+   
 app.run()
